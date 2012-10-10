@@ -1,0 +1,6 @@
+%div
+  %span Hit me!
+  %span.stack-counter
+    = "(#{@cards.length})"
+.serve-new-cards--explanation
+  (or press Enter)

@@ -1,0 +1,30 @@
+*
+  +box-sizing(border-box)
+
+html
+  // http://stackoverflow.com/a/10538370
+  -ms-overflow-y: scroll
+  overflow-y: scroll
+  height: 101%
+  min-height: 100%
+  padding-bottom: 1px
+
+body
+  background-color: $background-colour
+  font-family: 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
+  height: 100%
+
+a
+  color: $blue
+  text-decoration: none
+
+.low-opacity
+  +opacity(0.4)
+
+.left
+  float: left
+.right
+  float: right
+
+.clearfix
+  +pie-clearfix
