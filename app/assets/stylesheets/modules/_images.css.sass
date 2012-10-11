@@ -1,3 +1,6 @@
+.title-image--wrapper
+  position: relative
+
 .title-image
   //clip: rect(100px, 1137px, 652px, 0px)
   width: 100%
@@ -5,4 +8,13 @@
   margin: 0 auto
   background-size: cover
   background-position: center
+  background-repeat: no-repeat
   background-image: image-url('room.jpg')
+  +box-shadow(0 0 10px rgba($black, 0.3))
+  position: absolute
+  top: 0
+  left: 0
+  display: none
+  &:first-child
+    display: block
+

@@ -1,9 +1,16 @@
 .l-content-container
-  = image_tag 'logo.png', :class => 'logo'
-  %nav.l-navigation
-    %ul
-      %li= link_to 'Photos', '#'
-      %li= link_to 'Blog', '#'
-      %li= link_to 'About', '#'
-      %li= link_to 'Contact', '#'
-  .title-image
+  %header.l-head
+    = image_tag 'logo.png', :class => 'logo'
+    %nav.l-navigation
+      %ul
+        %li= link_to 'Photos', '#'
+        %li= link_to 'Blog', '#'
+        %li= link_to 'About', '#'
+        %li= link_to 'Contact', '#'
+
+  .title-image--wrapper
+    - 25.times do |counter|
+      - dimensions = Dimensions.dimensions(File.open("#{Rails.root}/app/assets/images#{asset_path("title_images/#{"%04d" % counter}.jpg").gsub('/assets', '')}", 'r'))
+      .title-image{:style => "background-image: url(#{asset_path("title_images/#{"%04d" % counter}.jpg")}); background-size: #{dimensions.first > dimensions.last ? 'cover' : 'contain'}"}
+      - dimensions = Dimensions.dimensions(File.open("#{Rails.root}/app/assets/images#{asset_path("title_images/#{"%04d" % counter}.jpg").gsub('/assets', '')}", 'r'))
+      -#= image_tag "title_images/#{"%04d" % counter}.jpg", :class => 'title-image'
