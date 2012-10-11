@@ -9,7 +9,6 @@
   .l-navigation--splitter
   %li.l-navigation--item
     %a.save-load-game{href: '#'}
-      %img{src: '/assets/save.png'}
       Save/Load Game
   %li.l-navigation--item.last
     %a.serve-new-cards{title: 'Stuck? Serving additional cards from the stack might help!'}
