@@ -1,13 +1,14 @@
 source 'https://rubygems.org'
 
+gem 'rails', '~>3.2'
+gem 'pg'
+
 gem 'rabl' # must appear before 'gon'
 gem 'gon'
 
 gem 'dropbox-api'#, :git => 'git@github.com:paulwittmann/dropbox-api.git'
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'pg'
-gem 'rails', '~>3.2'
 gem 'rails-backbone'
 gem 'settingslogic'
 gem 'yajl-ruby', :require => 'yajl'
@@ -27,7 +28,6 @@ end
 
 group :development do
   gem 'dimensions' # pure Ruby implementation to retrieve image files' dimension
-  gem 'heroku'
   gem 'lograge'
   gem 'quiet_assets'
   gem 'taps' # required to dump Heroku DB
