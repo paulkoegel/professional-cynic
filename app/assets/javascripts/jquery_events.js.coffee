@@ -1,13 +1,16 @@
 $ ->
-  imagesCount = $('.title-image').length
+  imagesCount = $('.image_large-wrapper').length
   currentItem = 0
   fadeTime = 750
 
   setInterval ->
-    $('.title-image').eq(currentItem).fadeOut(fadeTime)
+    $('.image_large-wrapper').eq(currentItem).fadeOut(fadeTime)
     if currentItem == imagesCount-1
       currentItem = 0
     else
       currentItem++
-    $('.title-image').eq(currentItem).fadeIn(fadeTime)
+    $currentImageWrapper = $('.image_large-wrapper').eq(currentItem)
+    $currentImage = $currentImageWrapper.children('.image_large')
+    $('.image_large--caption').text($currentImage.data 'caption')
+    $currentImageWrapper.fadeIn(fadeTime)
   , 3500

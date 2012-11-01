@@ -1,3 +1,6 @@
+// tag styling
+// ===========
+
 *
   +box-sizing(border-box)
 
@@ -11,15 +14,17 @@ html
 
 body
   background-color: $background-colour
-  font-family: 'OpenSansRegular', 'Helvetica Neue', Helvetica, Arial, sans-serif
+  font-family: 'Kreon', 'Georgia', 'Times New Roman', serif
   height: 100%
+  background-image: image-url('pattern.png')
 
 a
   color: $blue
   text-decoration: none
 
-.low-opacity
-  +opacity(0.4)
+
+// generic classes
+// ===============
 
 .left
   float: left
@@ -29,12 +34,5 @@ a
 .clearfix
   +pie-clearfix
 
-// h1
-//   font-family: 'Illegal-Curves-Medium'
-//   font-size: 30px
-//   color: $white
-//   background: #333
-//   span
-//     color: grey
-//     font-size: 14px
-//     font-family: 'Illegal-Curves-Light'
+.low-opacity
+  +opacity(0.4)

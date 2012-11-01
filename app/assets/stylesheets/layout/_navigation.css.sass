@@ -1,23 +1,31 @@
 .l-navigation
   +pie-clearfix
+  float: left
   line-height: 43px
-  position: relative
-  top: -10px
-  color: #999
+  color: #555
   text-transform: uppercase
   > ul
+    +pie-clearfix
     list-style-type: none
     margin: 0
-    +pie-clearfix
+    padding-left: 0
     > li
       float: left
       margin-right: 30px
+      margin-top: 2px
       &:last-child
         margin-right: 0
       > a
         color: inherit
-        font-family: 'OpenSansLight'
-        font-size: 13px
+        font-family: 'Unica One'
+        font-size: 18px
         &:hover
           text-decoration: underline
-          color: #eee
+          color: #222
+
+.main-title
+  font-family: 'Unica One'
+  font-weight: normal
+  text-transform: uppercase
+  float: left
+  margin: 0 40px 0 0
