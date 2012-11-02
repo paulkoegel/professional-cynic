@@ -64,5 +64,7 @@ module Irmingard
     # config.assets.paths << Rails.root.join('app', 'assets', 'javascripts', 'templates')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'fonts')
 
+    config.assets.initialize_on_precompile = false
+
   end
 end
