@@ -1,1 +1,0 @@
-%img{:src => "#{if @open then @imagePath else @backImagePath}"}

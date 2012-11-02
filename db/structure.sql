@@ -29,22 +29,26 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: games; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: galleries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE games (
+CREATE TABLE galleries (
     id integer NOT NULL,
-    state character varying(255),
+    slug character varying(255),
+    title character varying(255),
+    description text,
+    location character varying(255),
+    string date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
 
 
 --
--- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: galleries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE games_id_seq
+CREATE SEQUENCE galleries_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -53,10 +57,81 @@ CREATE SEQUENCE games_id_seq
 
 
 --
--- Name: games_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: galleries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE games_id_seq OWNED BY games.id;
+ALTER SEQUENCE galleries_id_seq OWNED BY galleries.id;
+
+
+--
+-- Name: galleryships; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE galleryships (
+    id integer NOT NULL,
+    gallery_id integer,
+    image_id integer,
+    is_active boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: galleryships_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE galleryships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: galleryships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE galleryships_id_seq OWNED BY galleryships.id;
+
+
+--
+-- Name: images; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE images (
+    id integer NOT NULL,
+    url character varying(255),
+    width integer,
+    height integer,
+    title character varying(255),
+    caption text,
+    taken_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    file_name character varying(255),
+    local_path character varying(255)
+);
+
+
+--
+-- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE images_id_seq OWNED BY images.id;
 
 
 --
@@ -72,15 +147,45 @@ CREATE TABLE schema_migrations (
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY games ALTER COLUMN id SET DEFAULT nextval('games_id_seq'::regclass);
+ALTER TABLE ONLY galleries ALTER COLUMN id SET DEFAULT nextval('galleries_id_seq'::regclass);
 
 
 --
--- Name: games_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY games
-    ADD CONSTRAINT games_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY galleryships ALTER COLUMN id SET DEFAULT nextval('galleryships_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::regclass);
+
+
+--
+-- Name: galleries_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY galleries
+    ADD CONSTRAINT galleries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: galleryships_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY galleryships
+    ADD CONSTRAINT galleryships_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: images_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY images
+    ADD CONSTRAINT images_pkey PRIMARY KEY (id);
 
 
 --
@@ -94,4 +199,12 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO schema_migrations (version) VALUES ('20120722191644');
+INSERT INTO schema_migrations (version) VALUES ('20121101222641');
+
+INSERT INTO schema_migrations (version) VALUES ('20121101222912');
+
+INSERT INTO schema_migrations (version) VALUES ('20121101230632');
+
+INSERT INTO schema_migrations (version) VALUES ('20121101231941');
+
+INSERT INTO schema_migrations (version) VALUES ('20121101232444');

@@ -11,6 +11,6 @@ $ ->
       currentItem++
     $currentImageWrapper = $('.image_large-wrapper').eq(currentItem)
     $currentImage = $currentImageWrapper.children('.image_large')
-    $('.image_large--caption').text($currentImage.data 'caption')
+    $('.image_large--caption').text($currentImage.data 'caption' or '')
     $currentImageWrapper.fadeIn(fadeTime)
   , 3500
