@@ -14,13 +14,13 @@ gem 'rails-backbone'
 gem 'settingslogic'
 gem 'yajl-ruby', :require => 'yajl'
 
-gem 'compass-rails'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'animation', '~> 0.1.alpha.3' # CSS3 animations plugin for compass
   gem 'coffee-rails', '~> 3.2.2'
   gem 'compass-normalize'
+  gem 'compass-rails'
   gem 'execjs'
   gem 'haml_coffee_assets'
   gem 'sass-rails',   '~> 3.2.5'
