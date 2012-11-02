@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '~>3.2'
 gem 'pg'
-gem 'thin'
 
 gem 'rabl' # must appear before 'gon'
 gem 'gon'
@@ -31,6 +30,7 @@ group :development do
   gem 'dimensions' # pure Ruby implementation to retrieve image files' dimension
   gem 'lograge'
   gem 'quiet_assets'
+  gem 'thin'
 end
 
 group :development, :test do
