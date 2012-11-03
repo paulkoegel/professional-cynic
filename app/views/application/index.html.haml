@@ -30,7 +30,7 @@
       = captions[0]
 
     .large-images-wrapper
-      - Image.all.each_with_index do |image, index|
+      - Gallery.first.images.each_with_index do |image, index|
         -# dimensions = Dimensions.dimensions(File.open("#{Rails.root}/app/assets/images#{asset_path("title_images/#{"%04d" % counter}.jpg").gsub('/assets', '')}", 'r'))
         - if image.width && image.height
           .image_large-wrapper
