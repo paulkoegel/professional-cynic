@@ -144,6 +144,44 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    email character varying(255) NOT NULL,
+    crypted_password character varying(255),
+    salt character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    remember_me_token character varying(255) DEFAULT NULL::character varying,
+    remember_me_token_expires_at timestamp without time zone,
+    reset_password_token character varying(255) DEFAULT NULL::character varying,
+    reset_password_token_expires_at timestamp without time zone,
+    reset_password_email_sent_at timestamp without time zone
+);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -162,6 +200,13 @@ ALTER TABLE ONLY galleryships ALTER COLUMN id SET DEFAULT nextval('galleryships_
 --
 
 ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
@@ -189,6 +234,28 @@ ALTER TABLE ONLY images
 
 
 --
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_users_on_remember_me_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_remember_me_token ON users USING btree (remember_me_token);
+
+
+--
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -208,3 +275,9 @@ INSERT INTO schema_migrations (version) VALUES ('20121101230632');
 INSERT INTO schema_migrations (version) VALUES ('20121101231941');
 
 INSERT INTO schema_migrations (version) VALUES ('20121101232444');
+
+INSERT INTO schema_migrations (version) VALUES ('20121103001606');
+
+INSERT INTO schema_migrations (version) VALUES ('20121103001607');
+
+INSERT INTO schema_migrations (version) VALUES ('20121103001608');
