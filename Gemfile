@@ -3,8 +3,10 @@ source 'https://rubygems.org'
 gem 'rails', '~>3.2'
 gem 'pg'
 gem 'thin'
+gem 'sorcery'
 
 gem 'rabl' # must appear before 'gon'
+gem 'yajl-ruby', :require => 'yajl'
 gem 'gon'
 
 gem 'dropbox-api'#, :git => 'git@github.com:paulwittmann/dropbox-api.git'
@@ -12,7 +14,6 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'settingslogic'
-gem 'yajl-ruby', :require => 'yajl'
 
 # Gems used only for assets and not required
 # in production environments by default.
