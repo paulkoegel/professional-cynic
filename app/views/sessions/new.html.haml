@@ -1,0 +1,12 @@
+= form_tag sessions_path, :class => 'm-form' do
+  .m-form-row
+    = label_tag :email
+    = text_field_tag :email, @email, :autofocus => 'autofocus'
+  .m-form-row
+    = label_tag :password
+    = password_field_tag :password
+  .m-form-row
+    = check_box_tag :remember_me
+    = label_tag :remember_me
+  = submit_tag 'Log in', :class => 'm-button'
+  = link_to 'Reset password', new_password_reset_path, :class => 'password-reset'

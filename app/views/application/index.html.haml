@@ -7,6 +7,9 @@
         %li= link_to 'Blog', '#'
         %li= link_to 'About', '#'
         %li= link_to 'Contact', '#'
+    - if current_user
+      .right
+        = link_to current_user.email, logout_path
 
   - captions = [ Array.new(8, 'On the bus to Taipei'),
     Array.new(2, "Chiang Kai-shek Memorial (中正紀念堂)"),
