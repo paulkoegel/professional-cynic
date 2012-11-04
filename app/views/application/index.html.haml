@@ -1,24 +1,10 @@
-.l-content-container
-  %header.l-header
-    .main-icon.icon.megaphone
-    %h1.main-title Professional Cynic
-    %nav.l-navigation
-      %ul
-        %li= link_to 'Photos', '#'
-        %li= link_to 'Blog', '#'
-        %li= link_to 'About', '#'
-        %li= link_to 'Contact', '#'
-    - if current_user
-      .right
-        = link_to current_user.email, logout_path
+.m-gallery-wrapper
+  .image_large--caption
+    = Gallery.first.images.first.title
 
-  .m-gallery-wrapper
-    .image_large--caption
-      = Gallery.first.images.first.title
-
-    .large-images-wrapper
-      - Gallery.first.images.order("file_name ASC").each_with_index do |image, index|
-        - if image.width && image.height
-          .image_large-wrapper
-            - image_width = image.width > image.height ? 980 : (606.0*image.width/image.height).round
-            .image_large{:style => "width: #{image_width}px; height: 606px; margin-left: -#{(image_width/2).round}px; background-image: url(#{image.url}); background-size: #{image.width > image.height ? 'cover' : 'cover'}", :data => {:caption => image.title}}
+  .large-images-wrapper
+    - Gallery.first.images.order("file_name ASC").each_with_index do |image, index|
+      - if image.width && image.height
+        .image_large-wrapper
+          - image_width = image.width > image.height ? 980 : (606.0*image.width/image.height).round
+          .image_large{:style => "width: #{image_width}px; height: 606px; margin-left: -#{(image_width/2).round}px; background-image: url(#{image.url}); background-size: #{image.width > image.height ? 'cover' : 'cover'}", :data => {:caption => image.title}}
