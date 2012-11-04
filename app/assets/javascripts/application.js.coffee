@@ -1,5 +1,6 @@
 #= require jquery
 #= require jquery_ujs
+#= require jquery.imagesloaded
 #= require underscore
 #= require hamlcoffee
 #= require backbone

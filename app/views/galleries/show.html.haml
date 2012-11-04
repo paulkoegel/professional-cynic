@@ -1,3 +1,11 @@
+// preload images
+// for some reason we need to really display the first image so it show up before setInterval kicks in - weird!
+%div{style: 'position: absolute; width: 0; height: 0; left: 0; top:0'}
+  = image_tag @gallery.images.first.url, :class => 'preload-image', :style => 'width: 1px; height: 1px'
+%div{style: 'display: none'}
+  - @gallery.images.order("file_name ASC").all[1..-1].each do |image|
+    = image_tag image.url, :class => 'preload-image'
+
 .m-gallery-wrapper
   .image_large--caption
     %span.gallery-title
@@ -6,8 +14,8 @@
       = @gallery.images.first.title
 
   .large-images-wrapper
-    - Gallery.first.images.order("file_name ASC").each_with_index do |image, index|
-      - if image.width && image.height
-        .image_large-wrapper
-          -# image_width = image.width > image.height ? 980 : (606.0*image.width/image.height).round
-          .image_large{:style => "width: #{image.scaled_box_width}px; height: #{image.scaled_box_height}; margin-left: -#{(image.scaled_box_width/2).round}px; background-image: url(#{image.url}); background-size: 'cover'", :data => {:caption => image.title}}
+    - @gallery.images.order("file_name ASC").each_with_index do |image, index|
+      -# if image.width && image.height
+      .image_large-wrapper{:style => index == 0 ? 'opacity: 1;' : nil}
+        -# image_width = image.width > image.height ? 980 : (606.0*image.width/image.height).round
+        .image_large{:style => "width: #{image.scaled_box_width}px; height: #{image.scaled_box_height}; margin-left: -#{(image.scaled_box_width/2).round}px; background-image: url(#{image.url}); background-size: 'cover'", :data => {:caption => image.title}}

@@ -1,46 +1,44 @@
-PC.showNextImage = ->
-  $('.image_large-wrapper').eq(PC.currentItem).css 'opacity', 0
-  PC.currentItem++
-  $currentImageWrapper = $('.image_large-wrapper').eq(PC.currentItem)
-  $currentImage = $currentImageWrapper.children('.image_large')
-  $('.image_large--caption .image-title').text($currentImage.data 'caption' or '')
-  $currentImageWrapper.css 'opacity', 1
-
 $ ->
-  imagesCount = $('.image_large-wrapper').length
-  PC.currentItem = 0
-  fadeTime = 750
-  justClicked = false
+  $('.preload-image').imagesLoaded ->
+    setInterval ->
+      unless PC.justClicked
+        PC.showNextImage
+          transition: true
+      PC.justClicked = false
+    , 3500
 
-  # setInterval ->
-  #   unless justClicked
-  #     $('.image_large-wrapper').eq(currentItem).fadeOut(fadeTime)
-  #     if currentItem == imagesCount-1
-  #       currentItem = 0
-  #     else
-  #       currentItem++
-  #     $currentImageWrapper = $('.image_large-wrapper').eq(currentItem)
-  #     $currentImage = $currentImageWrapper.children('.image_large')
-  #     $('.image_large--caption .image-title').text($currentImage.data 'caption' or '')
-  #     $currentImageWrapper.fadeIn(fadeTime)
-  #   justClicked = false
-  # , 3500
+  PC.galleryImagesCount = $('.image_large-wrapper').length
+  PC.currentImageIndex = 0
+  fadeTime = 750
+  PC.justClicked = false
 
   $('.image_large-wrapper').click (event) ->
     event.preventDefault()
     event.stopPropagation()
-    justClicked = true
-    # $('.image_large-wrapper').eq(currentItem).fadeOut(fadeTime)
-    # currentItem++
-    # $currentImageWrapper = $('.image_large-wrapper').eq(currentItem)
-    # $currentImage = $currentImageWrapper.children('.image_large')
-    # $('.image_large--caption .image-title').text($currentImage.data 'caption' or '')
-    # $currentImageWrapper.fadeIn(fadeTime)
-    
-    PC.showNextImage()
-    # $('.image_large-wrapper').eq(currentItem).css 'opacity', 0
-    # currentItem++
-    # $currentImageWrapper = $('.image_large-wrapper').eq(currentItem)
-    # $currentImage = $currentImageWrapper.children('.image_large')
-    # $('.image_large--caption .image-title').text($currentImage.data 'caption' or '')
-    # $currentImageWrapper.css 'opacity', 1
+    PC.justClicked = true
+    PC.showNextImage
+      transition: false
+
+
+PC.showNextImage = (attributes = {}) ->
+  $lastImageWrapper = $('.image_large-wrapper').eq(PC.currentImageIndex)
+  if attributes.transition == true
+    $lastImageWrapper.addClass('with-transition')
+  else
+    $lastImageWrapper.removeClass('with-transition') # remove b/c we might be coming back to this image after looping once through the entire collection.
+  $lastImageWrapper.css 'opacity', 0
+
+  if PC.currentImageIndex == PC.galleryImagesCount - 1
+    PC.currentImageIndex = 0
+  else
+    PC.currentImageIndex++
+
+  $currentImageWrapper = $('.image_large-wrapper').eq(PC.currentImageIndex)
+  $currentImage = $currentImageWrapper.children('.image_large')
+  $('.image_large--caption .image-title').text($currentImage.data 'caption' or '')
+
+  if attributes.transition == true
+    $currentImageWrapper.addClass('with-transition')
+  else
+    $currentImageWrapper.removeClass('with-transition')
+  $currentImageWrapper.css 'opacity', 1
