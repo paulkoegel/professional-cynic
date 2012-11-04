@@ -6,10 +6,14 @@
 
 .image_large-wrapper
   +pie-clearfix
-  display: none
+  //display: none
+  +opacity(0)
   position: relative
+  +transition-property(opacity)
+  +transition-duration(0.4s)
+  +transition-timing-function(ease-in-out)
   &:first-child
-    display: block
+    +opacity(1)
 
 .image_large
   width: 980px
