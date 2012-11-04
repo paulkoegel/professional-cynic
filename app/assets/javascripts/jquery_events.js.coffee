@@ -1,6 +1,14 @@
+PC.showNextImage = ->
+  $('.image_large-wrapper').eq(PC.currentItem).css 'opacity', 0
+  PC.currentItem++
+  $currentImageWrapper = $('.image_large-wrapper').eq(PC.currentItem)
+  $currentImage = $currentImageWrapper.children('.image_large')
+  $('.image_large--caption .image-title').text($currentImage.data 'caption' or '')
+  $currentImageWrapper.css 'opacity', 1
+
 $ ->
   imagesCount = $('.image_large-wrapper').length
-  currentItem = 0
+  PC.currentItem = 0
   fadeTime = 750
   justClicked = false
 
@@ -29,9 +37,10 @@ $ ->
     # $('.image_large--caption .image-title').text($currentImage.data 'caption' or '')
     # $currentImageWrapper.fadeIn(fadeTime)
     
-    $('.image_large-wrapper').eq(currentItem).css 'opacity', 0
-    currentItem++
-    $currentImageWrapper = $('.image_large-wrapper').eq(currentItem)
-    $currentImage = $currentImageWrapper.children('.image_large')
-    $('.image_large--caption .image-title').text($currentImage.data 'caption' or '')
-    $currentImageWrapper.css 'opacity', 1
+    PC.showNextImage()
+    # $('.image_large-wrapper').eq(currentItem).css 'opacity', 0
+    # currentItem++
+    # $currentImageWrapper = $('.image_large-wrapper').eq(currentItem)
+    # $currentImage = $currentImageWrapper.children('.image_large')
+    # $('.image_large--caption .image-title').text($currentImage.data 'caption' or '')
+    # $currentImageWrapper.css 'opacity', 1
