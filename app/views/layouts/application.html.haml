@@ -3,7 +3,7 @@
   %head
     %title ProfCyn
     %meta{:charset => 'utf-8'}
-    %link{rel: 'shortcut icon', href: '/favicon.png'}
+    %link{rel: 'shortcut icon', href: '/favicon.ico'}
     = stylesheet_link_tag 'application', :media => 'all'
     /[if lt IE 9]
       = javascript_include_tag 'modernizr', 'json2', 'ie'
@@ -13,6 +13,6 @@
     = csrf_meta_tags
     = include_gon
 
-  %body
+  %body{:class => "#{controller_name}-controller #{action_name}-action"}
     .l-gradient-layer
     = yield

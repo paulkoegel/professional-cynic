@@ -63,6 +63,8 @@ GEM
       compass (>= 0.11.5)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
+    compass_twitter_bootstrap (2.0.3)
+      compass
     daemons (1.1.9)
     database_cleaner (0.9.1)
     debugger (1.2.1)
@@ -263,6 +265,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.2)
   compass-normalize
   compass-rails
+  compass_twitter_bootstrap
   database_cleaner
   debugger
   dimensions

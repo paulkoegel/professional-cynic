@@ -34,3 +34,24 @@ $caption-height: 45px
   font-family: 'PT Sans Narrow'
   font-size: 16px
   font-weight: 300
+
+%a-image
+
+.m-image
+  @extend %a-image
+
+.m-image-container_thumb
+  width: 150px
+  height: 150px
+  display: table-cell
+  vertical-align: middle
+
+.m-image_thumb
+  @extend %a-image
+  max-width: 100%
+  max-height: 100%
+  line-height: 100%
+
+.m-grid_images
+  .m-image-container_thumb
+    text-align: center

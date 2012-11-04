@@ -21,6 +21,7 @@ group :assets do
   gem 'animation', '~> 0.1.alpha.3' # CSS3 animations plugin for compass
   gem 'coffee-rails', '~> 3.2.2'
   gem 'compass-normalize'
+  gem 'compass_twitter_bootstrap'
   gem 'compass-rails'
   gem 'execjs'
   gem 'haml_coffee_assets'

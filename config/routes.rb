@@ -7,7 +7,14 @@ Irmingard::Application.routes.draw do
   get 'login'  => 'sessions#new', :as => 'login'
   resources :password_resets, :only => [:new, :create, :edit, :update]
 
-  resources :galleries
+  resources :galleries, :only => [:show, :index]
+
+  namespace :admin do
+    root :to => 'galleries#index'
+    resources :galleries
+    resources :images
+  end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

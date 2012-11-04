@@ -18,3 +18,4 @@ http_path = "/"
 preferred_syntax = :sass
 
 require 'compass-normalize'
+require 'compass_twitter_bootstrap'

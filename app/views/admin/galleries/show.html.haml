@@ -1,0 +1,17 @@
+%ul.m-grid_images
+  - @gallery.images.sort_by(&:file_name).each_slice(5).each do |image_group|
+    .m-grid--row
+      - image_group.each do |image|
+        %li.m-grid--item
+          .m-image-container_thumb
+            = image_tag image.thumb_url, :class => 'm-image_thumb'
+          = form_for image, :url => admin_image_path(image), :class => 'form' do |f|
+            .control-group
+              = f.label :title
+              .controls
+                = f.text_field :title
+            .control-group
+              = f.label :caption
+              .controls
+                = f.text_field :caption
+              = f.submit 'Save'

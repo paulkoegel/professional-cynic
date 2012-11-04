@@ -1,0 +1,23 @@
+.m-grid
+
+.m-grid_images
+  +pie-clearfix
+  margin: 0
+  .m-grid--item
+    width: round(920px/5)
+
+.m-grid--row
+  +pie-clearfix
+
+.m-grid--item
+  list-style-type: none
+  float: left
+  margin-right: 5px
+  &:last-child
+    margin-right: 0
+
+.m-grid_images
+  .m-grid--item
+    .controls
+      input
+        width: 90%

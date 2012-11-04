@@ -11,28 +11,12 @@
       .right
         = link_to current_user.email, logout_path
 
-  - captions = [ Array.new(8, 'On the bus to Taipei'),
-    Array.new(2, "Chiang Kai-shek Memorial (中正紀念堂)"),
-    'Local Food',
-    'Taipei at Night',
-    Array.new(2, 'Near Longshan Temple (艋舺龍山寺)'),
-    Array.new(3, 'Longshan Temple, Taipei (艋舺龍山寺)'),
-    'Near Longshan Temple (艋舺龍山寺)',
-    'Nightmarket in Taipei',
-    'Taipei at Night',
-    'Salt Peanuts Café',
-    'Taipei Underground',
-    'Electrics']
-  - captions.flatten!.map!{|caption| "TAIWAN: #{caption}"}
-
   .m-gallery-wrapper
     .image_large--caption
-      = captions[0]
+      = Gallery.first.images.first.title
 
     .large-images-wrapper
-      - Gallery.first.images.each_with_index do |image, index|
-        -# dimensions = Dimensions.dimensions(File.open("#{Rails.root}/app/assets/images#{asset_path("title_images/#{"%04d" % counter}.jpg").gsub('/assets', '')}", 'r'))
+      - Gallery.first.images.order("file_name ASC").each_with_index do |image, index|
         - if image.width && image.height
           .image_large-wrapper
-            - image_path = Rails.env.production? ? image.url : "http://localhost:4000/#{image.galleries.first.title.downcase}/#{image.file_name}"
-            .image_large{:style => "background-image: url(#{image_path}); background-size: #{image.width > image.height ? 'cover' : 'contain'}", :data => {:caption => captions[index]}}
+            .image_large{:style => "background-image: url(#{image.url}); background-size: #{image.width > image.height ? 'cover' : 'contain'}", :data => {:caption => image.title}}

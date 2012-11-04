@@ -1,0 +1,36 @@
+!!!
+%html
+  %head
+    %title ProfCyn Admin Area
+    %meta{:charset => 'utf-8'}
+    %link{rel: 'shortcut icon', href: '/favicon.ico'}
+    = stylesheet_link_tag 'admin', :media => 'all'
+    /[if lt IE 9]
+      = javascript_include_tag 'modernizr', 'json2', 'ie'
+    /[if IE]
+      = stylesheet_link_tag 'ie'
+    = javascript_include_tag 'admin'
+    = csrf_meta_tags
+    = include_gon
+
+  %body{:class => "#{controller_name}-controller #{action_name}-action"}
+    .l-gradient-layer
+      
+    .container
+      .navbar
+        .navbar-inner
+          .container
+            = link_to 'Admin Area', admin_root_path, :class => 'brand'
+            %ul.nav
+              %li= link_to 'Galleries', ''
+            %ul.nav.pull-right
+              %li= link_to 'Logout', logout_path, class: 'login-logout'
+              %li{:class => I18n.locale == :de ? 'active' : nil}
+                = link_to 'DE', url_for(params.merge(:locale => :de))
+              %li{:class => I18n.locale == :en ? 'active' : nil}
+                = link_to 'EN', url_for(params.merge(:locale => :en))
+      .m-flash-messages
+        - flash.each do |key, value|
+          .m-flash-message{:class => "alert alert-#{key == :notice ? 'success' : 'error'}"}= value
+
+      = yield

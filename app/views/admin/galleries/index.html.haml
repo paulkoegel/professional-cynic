@@ -1,0 +1,12 @@
+%h1 Galleries
+
+%table.table.table-striped.table-bordered
+  %thead
+    %tr
+      %th Title
+      %th Images
+  %tbody
+    - @galleries.each do |gallery|
+      %tr
+        %td= link_to gallery.title, admin_gallery_path(gallery)
+        %td= gallery.images.size

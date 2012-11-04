@@ -102,7 +102,7 @@ ALTER SEQUENCE galleryships_id_seq OWNED BY galleryships.id;
 
 CREATE TABLE images (
     id integer NOT NULL,
-    url character varying(255),
+    remote_url character varying(255),
     width integer,
     height integer,
     title character varying(255),
@@ -281,3 +281,5 @@ INSERT INTO schema_migrations (version) VALUES ('20121103001606');
 INSERT INTO schema_migrations (version) VALUES ('20121103001607');
 
 INSERT INTO schema_migrations (version) VALUES ('20121103001608');
+
+INSERT INTO schema_migrations (version) VALUES ('20121103175810');
