@@ -19,4 +19,5 @@
       - Gallery.first.images.order("file_name ASC").each_with_index do |image, index|
         - if image.width && image.height
           .image_large-wrapper
-            .image_large{:style => "background-image: url(#{image.url}); background-size: #{image.width > image.height ? 'cover' : 'contain'}", :data => {:caption => image.title}}
+            - image_width = image.width > image.height ? 980 : (606.0*image.width/image.height).round
+            .image_large{:style => "width: #{image_width}px; height: 606px; margin-left: -#{(image_width/2).round}px; background-image: url(#{image.url}); background-size: #{image.width > image.height ? 'cover' : 'cover'}", :data => {:caption => image.title}}
