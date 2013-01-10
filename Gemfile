@@ -31,8 +31,8 @@ end
 
 group :development do
   gem 'dimensions' # pure Ruby implementation to retrieve image files' dimension
-  gem 'lograge'
-  gem 'quiet_assets'
+  #gem 'lograge'
+  #gem 'quiet_assets'
 end
 
 group :development, :test do
