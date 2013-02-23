@@ -70,6 +70,8 @@
             // result starts with "data:" when this callback is triggered by .readAsBinaryString
             if (/^data:/.test(reader.result)) {
               img.src = evt.target.result;
+              $(img).data('width', img.naturalWidth); // can't use $(img), or would have to use $(img)[0]
+              $(img).data('height', img.naturalHeight);
               reader.readAsBinaryString(file); // for some reason we need to call this within the .readAsDataURLs' callback - the `onload` callback doesn't fire twice when calling .readAsBinaryString right after .readAsDataURL
             } else if (reader.result !== null) { // callback's been called by .readAsDataURL
               sha256.update(CryptoJS.enc.Latin1.parse(evt.target.result));
