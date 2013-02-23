@@ -40,7 +40,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails', '>= 1.1.rc1', :require => false
+  gem 'factory_girl_rails', '>= 1.1.rc1', require: false
   gem 'guard-jasmine'
   gem 'jasminerice'
   gem 'pry-debugger'
@@ -51,11 +51,11 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'factory_girl_rails', '>= 1.1.rc1', :require => false
+  gem 'factory_girl_rails', '>= 1.1.rc1', require: false
   gem 'fuubar', '~> 1.0.0'
   gem 'launchy'
   gem 'rspec-instafail'
   gem 'shoulda-matchers'
-  gem 'simplecov', :require => false
-  gem 'turn', '~> 0.8.3', :require => false
+  gem 'simplecov', require: false
+  gem 'turn', '~> 0.8.3', require: false
 end
