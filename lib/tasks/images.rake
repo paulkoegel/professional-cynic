@@ -1,8 +1,6 @@
 # encoding: UTF-8
-# require 'dimensions'
 
-# call with, e.g.: `rake blood_bank:sync_files['people/michael_bumann.json texts/about_us.json']`
-namespace :dropbox do
+namespace :images do
 
   # assumed folder structure:
   # - galleries (not checked into code repository)
@@ -11,10 +9,13 @@ namespace :dropbox do
   #   - tokyo
   # - repo (code repository from which the rake task is run)
 
-  desc 'Scan local folder for images, calculate their dimensions, upload them to Dropbox and store them in the database.'
-  task :sync_up => :environment do
-    client = Dropbox::API::Client.new(token: Settings.dropbox.token, secret: Settings.dropbox.secret)
+  desc 'Scan local public/files folder for images, find the corresponding Image objects in the DB (by their SHA256) and update their local_path attributes'
+  task scan_filenames: :environment do
     base_path = Rails.root.join('public', 'files')
+
+    client = Dropbox::API::Client.new(token: Settings.dropbox.token, secret: Settings.dropbox.secret)
+    base_path = Dir.pwd.sub(/\/[^\/]+(\/)*$/, '/galleries')
+    gallery_folders = Dir["#{base_path}/*"].map{|e| e.split('/').last}
 
     gallery_folders.each do |gallery_folder|
       gallery = Gallery.find_or_create_by_title(gallery_folder.capitalize)
@@ -22,7 +23,7 @@ namespace :dropbox do
         file = File.new(image_path)
 
         image_file_name = File.basename(file.path) # .basename gives us just "my_image.jpg" from, e.g., "~/photos/my_image.jpg" 
-        image = Image.create uuid:         Digest::SHA256.file(file).hexdigest,
+        image = Image.create uuid:         Digest::SHA256.hexdigest(file),
                              file_name:    image_file_name,
                              gallery_name: gallery_folder,
                              width:        Dimensions.width(file),
@@ -56,3 +57,4 @@ namespace :dropbox do
   end
 
 end
+

@@ -18,7 +18,7 @@ PC.Routers     = {}
 PC.Views       = {}
 PC.Controllers = {}
 
-PC.vent = new Backbone.Marionette.EventAggregator()
+# PC.vent = new Backbone.Marionette.EventAggregator()
 
 class PC.AppLayout extends Backbone.Marionette.Layout
   template: 'layouts/application'

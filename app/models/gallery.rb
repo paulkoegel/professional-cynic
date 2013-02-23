@@ -7,7 +7,7 @@ class Gallery < ActiveRecord::Base
   has_many :galleryships
   has_many :images, :through => :galleryships
 
-  before_validation :create_slug
+  before_validation :set_slug
 
   validates :title, :presence => true
   validates :slug, :presence => true, :uniqueness => true
@@ -18,7 +18,7 @@ class Gallery < ActiveRecord::Base
 
   private
  
-    def create_slug
+    def set_slug
       self.slug = self.title.underscore.parameterize if self.title
     end
 
