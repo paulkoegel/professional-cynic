@@ -42,7 +42,10 @@ $caption-height: 45px
   font-size: 16px
   font-weight: 300
 
+// placeholder selector
 %aImage
+  // this cannot be empty - have to either add some dummy attributes here or call it via `@extend %aImage !optional`
+  font-size: 1em
 
 .m-image
   @extend %aImage
