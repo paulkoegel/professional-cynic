@@ -158,7 +158,10 @@ CREATE TABLE users (
     remember_me_token_expires_at timestamp without time zone,
     reset_password_token character varying(255) DEFAULT NULL::character varying,
     reset_password_token_expires_at timestamp without time zone,
-    reset_password_email_sent_at timestamp without time zone
+    reset_password_email_sent_at timestamp without time zone,
+    last_login_at timestamp without time zone,
+    last_logout_at timestamp without time zone,
+    last_activity_at timestamp without time zone
 );
 
 
@@ -242,6 +245,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_users_on_last_logout_at_and_last_activity_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_last_logout_at_and_last_activity_at ON users USING btree (last_logout_at, last_activity_at);
+
+
+--
 -- Name: index_users_on_remember_me_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -283,3 +293,5 @@ INSERT INTO schema_migrations (version) VALUES ('20121103001607');
 INSERT INTO schema_migrations (version) VALUES ('20121103001608');
 
 INSERT INTO schema_migrations (version) VALUES ('20121103175810');
+
+INSERT INTO schema_migrations (version) VALUES ('20130223144346');
