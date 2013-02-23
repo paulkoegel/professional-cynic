@@ -18,15 +18,14 @@ gem 'jquery-rails'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'animation' # CSS3 animations plugin for compass
   gem 'coffee-rails', '~> 3.2'
-  gem 'compass-normalize'
+  gem 'sass-rails', '~> 3.2'
   gem 'compass-rails'
+  gem 'animation' # CSS3 animations plugin for compass
+  gem 'compass_twitter_bootstrap' # required for admin panel
   gem 'execjs'
   gem 'haml_coffee_assets'
   gem 'oily_png' # faster CSS sprite generation
-  gem 'sass', '~> 3.2'
-  gem 'sass-rails', '~> 3.2'
   gem 'uglifier', '>= 1.2.6'
 end
 

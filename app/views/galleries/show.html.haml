@@ -1,5 +1,5 @@
 // preload images
-// for some reason we need to really display the first image so it show up before setInterval kicks in - weird!
+// for some reason we need to really display the first image so it shows up before setInterval kicks in - weird!
 %div{style: 'position: absolute; width: 0; height: 0; left: 0; top:0'}
   = image_tag @gallery.images.first.url, :class => 'preload-image', :style => 'width: 1px; height: 1px'
 %div{style: 'display: none'}
