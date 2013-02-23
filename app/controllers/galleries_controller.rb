@@ -1,7 +1,7 @@
 class GalleriesController < ApplicationController
 
   def show
-    @gallery = Gallery.find params[:id]
+    @gallery = Gallery.find_by_slug params[:id]
   end
 
   def index
