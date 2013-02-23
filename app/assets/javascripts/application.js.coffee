@@ -4,10 +4,8 @@
 #= require underscore
 #= require hamlcoffee
 #= require backbone
-#= require backbone_rails_sync
-#= require backbone_datalink
-#= require backbone.marionette-0.9.10-dev
-#= require backbone-relational-0.6.0
+#= require backbone.marionette
+#= require backbone-relational
 
 #= require_tree ./templates
 

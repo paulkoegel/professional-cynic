@@ -1,6 +1,6 @@
 Irmingard::Application.routes.draw do
 
-  root :to => 'application#index'
+  root :to => 'galleries#index'
 
   resources :sessions
   get 'logout' => 'sessions#destroy', :as => 'logout'
@@ -9,7 +9,7 @@ Irmingard::Application.routes.draw do
 
   resources :galleries, :only => [:show, :index]
 
-  namespace :admin do
+  namespace :admin_controllers do
     root :to => 'galleries#index'
     resources :galleries
     resources :images

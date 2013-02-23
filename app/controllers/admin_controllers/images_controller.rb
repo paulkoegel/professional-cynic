@@ -1,4 +1,4 @@
-class Admin::ImagesController < AdminController
+class AdminControllers::ImagesController < AdminController
   def new
   end
   def create

@@ -1,4 +1,4 @@
-class Admin::GalleriesController < AdminController
+class AdminControllers::GalleriesController < AdminController
 
   def new
     @gallery = Gallery.new
