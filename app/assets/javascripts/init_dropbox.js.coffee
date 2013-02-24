@@ -1,7 +1,7 @@
 # Degbugging Tips
 # ===============
 # PC.client.authState
-# PC.cleint.isAuthenticated()
+# PC.client.isAuthenticated()
 
 showUserInfo = (client) ->
   console.log 'showUserInfo'
@@ -18,11 +18,19 @@ $ ->
     sandbox: true
   PC.client.authDriver new Dropbox.Drivers.Redirect(rememberUser: true)
 
-  $('#js-dropbox-connect').click (event) ->
-    event.preventDefault()
-    PC.client.authenticate (error, client) ->
-      if error?
-        console.log error
-        return
-      console.log 'authenticate callback'
+  PC.client.authenticate(interactive: false, (error, client) ->
+    console.log 'authenticate callback'
+    if error?
+      console.log 'error authenticating with interactive: false', error
+      return
+    if client.isAuthenticated()
       showUserInfo(client)
+    else
+      $('#js-dropbox-connect').css('border', '1px solid red')
+      $('#js-dropbox-connect').click (event) ->
+        event.preventDefault()
+        client.authenticate (error, client) ->
+          if error?
+            console.log 'error authenticating with interactive: true', error
+          showUserInfo()
+  )

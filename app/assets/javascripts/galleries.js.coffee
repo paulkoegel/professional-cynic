@@ -47,5 +47,12 @@ $ ->
           for attribute of exifObject
             $exifTable.append('<tr><td>' + attribute + '</td><td>' + exifObject[attribute].description + '</td></tr>')
 
+
+          PC.client.writeFile('test.jpg', evt.target.result, (error, stat) ->
+            if error?
+              console.log 'error during writeFile to Dropbox: ', error
+            console.log 'file saved as revision: ', stat.revisionTag
+          )
+
         reader.readAsDataURL(file)
       )(index)

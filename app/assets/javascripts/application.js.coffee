@@ -8,7 +8,7 @@
 #= require backbone.marionette
 #= require backbone-relational
 #= require exif_reader
-#= require dropbox
+#= require dropbox_self-built
 
 #= require_tree ./templates
 
