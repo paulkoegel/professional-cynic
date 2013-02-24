@@ -25,3 +25,4 @@
 
 #= require jquery_events
 #= require galleries
+#= require init_dropbox
