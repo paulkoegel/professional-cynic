@@ -7,105 +7,15 @@
 %br
 %br
 
-%input#files{name: 'file', type: 'file', multiple: 'multiple'}/
-
-%button#js-calculate-sha256
-  Calculate SHA256s
+%h2 Upload new Images
+%input#js-image-uploader{name: 'file', type: 'file', multiple: 'multiple'}
+(Use <i>Shift</i> or <i>Control</i> to select mutiple files)
 
 %h3 SHA-256 Checksums
 .sha256-results
 
+
+%h3 Image Previews
 .image-previews
 
-#exif-table-body
-
-:javascript
-
-  function readBlob(file) {
-    var start = 0;
-    var stop = file.size - 1;
-    var reader = new FileReader();
-    var sha256 = CryptoJS.algo.SHA256.create();
-
-    // If we use onloadend, we need to check the readyState.
-    reader.onloadend = function(evt) {
-      if (evt.target.readyState == FileReader.DONE) { // DONE == 2
-        // Since it's binary data, the message needs to be converted from string to bytes using Latin1
-        sha256.update(CryptoJS.enc.Latin1.parse(evt.target.result));
-        var hash = sha256.finalize();
-        $('.sha256-results').append('<p>SHA-256: ' + hash + '</p>');
-      }
-    };
-
-    var blob = file.slice(start, stop + 1);
-    reader.readAsBinaryString(blob);
-  }
-
-  $('#js-calculate-sha256').click(function(evt) {
-    $('.sha256-results').html(''); // clear away previously rendered results
-    sha256 = CryptoJS.algo.SHA256.create();
-
-    _($('input#files').prop('files')).each(function(file) {
-      readBlob(file);
-    });
-  });
-
-  $('input#files').change(function(e) {
-    $('.image-previews').html(''); // clear away previously rendered previews
-    $('.sha256-results').html(''); // clear away previously rendered results
-
-    var target = e.originalEvent.srcElement || e.originalEvent.target;
-
-    for (var i = 0; i < target.files.length; i++) {
-      // we need the IIFE here to force block scope
-      // without it, `i` would be equal to target.files.length every time the `onloadend` callback is triggered
-      // and only the last <img> tag's src attribute would get updated several times
-      (function(i) {
-        var file = target.files[i];
-        var img = document.createElement('img');
-        var reader = new FileReader();
-        var reader2 = new FileReader();
-        var sha256 = CryptoJS.algo.SHA256.create();
-
-        reader.onload = function(evt) {
-          if (evt.target.readyState == FileReader.DONE) {
-            // result starts with "data:" when this callback is triggered by .readAsBinaryString
-            if (/^data:/.test(reader.result)) {
-              img.src = evt.target.result;
-              $(img).data('width', img.naturalWidth); // can't use $(img), or would have to use $(img)[0]
-              $(img).data('height', img.naturalHeight);
-              reader.readAsBinaryString(file); // for some reason we need to call this within the .readAsDataURLs' callback - the `onload` callback doesn't fire twice when calling .readAsBinaryString right after .readAsDataURL
-            } else if (reader.result !== null) { // callback's been called by .readAsDataURL
-              sha256.update(CryptoJS.enc.Latin1.parse(evt.target.result));
-              var hash = sha256.finalize();
-              $('.sha256-results').append('<p>SHA-256: ' + hash + '</p>');
-              $(img).data('sha256', hash);
-              reader2.readAsArrayBuffer(file);
-            }
-          }
-        }
-        reader.readAsDataURL(file);
-
-        reader2.onload = function(evt) {
-          console.log('reader 2 loaded');
-          var exif = new ExifReader();
-
-          // Parse the Exif tags.
-          exif.load(evt.target.result);
-          // Or, with jDataView you would use this:
-          //exif.loadView(new jDataView(evt.target.result));
-
-          // Output the tags on the page.
-          var tags = exif.getAllTags();
-          var tableBody = document.getElementById('exif-table-body');
-          for (var name in tags) {
-            var row = document.createElement('tr');
-            row.innerHTML = '<td>' + name + '</td><td>' + tags[name].description + '</td>';
-            tableBody.appendChild(row);
-          }
-        };
-
-        $(img).width('100').appendTo('.image-previews');
-      })(i);
-    }
-  });
+#exif-tables
