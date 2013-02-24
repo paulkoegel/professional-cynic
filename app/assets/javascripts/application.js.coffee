@@ -7,6 +7,7 @@
 #= require backbone
 #= require backbone.marionette
 #= require backbone-relational
+#= require exif_reader
 
 #= require_tree ./templates
 

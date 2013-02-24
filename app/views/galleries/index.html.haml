@@ -17,8 +17,9 @@
 
 .image-previews
 
+#exif-table-body
+
 :javascript
-  //var sha256;
 
   function readBlob(file) {
     var start = 0;
@@ -63,6 +64,7 @@
         var file = target.files[i];
         var img = document.createElement('img');
         var reader = new FileReader();
+        var reader2 = new FileReader();
         var sha256 = CryptoJS.algo.SHA256.create();
 
         reader.onload = function(evt) {
@@ -78,10 +80,30 @@
               var hash = sha256.finalize();
               $('.sha256-results').append('<p>SHA-256: ' + hash + '</p>');
               $(img).data('sha256', hash);
+              reader2.readAsArrayBuffer(file);
             }
           }
         }
         reader.readAsDataURL(file);
+
+        reader2.onload = function(evt) {
+          console.log('reader 2 loaded');
+          var exif = new ExifReader();
+
+          // Parse the Exif tags.
+          exif.load(evt.target.result);
+          // Or, with jDataView you would use this:
+          //exif.loadView(new jDataView(evt.target.result));
+
+          // Output the tags on the page.
+          var tags = exif.getAllTags();
+          var tableBody = document.getElementById('exif-table-body');
+          for (var name in tags) {
+            var row = document.createElement('tr');
+            row.innerHTML = '<td>' + name + '</td><td>' + tags[name].description + '</td>';
+            tableBody.appendChild(row);
+          }
+        };
 
         $(img).width('100').appendTo('.image-previews');
       })(i);
