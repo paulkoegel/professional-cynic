@@ -5,11 +5,11 @@ Professional Cynic - Photo Gallery with Dropbox.js Integration (Work in Progress
 
 1. Click on the Dropbox link in navigation bar
 2. Log into your Dropbox account and authorise "debjan's app"
-3. You'll be redirected back and should see your dropbox account's
+3. You'll be redirected back and should see your Dropbox account's
 name appear in the top right corner
 4. Select an image file (preferably with EXIF data) for the input field
-5. Image preview, SHA256 and EXIF data should be displayed
-6. Check out the image in your dropbox's "Apps/debjan's app" folder
+5. Image preview, SHA256 and EXIF data should be displayed and the will be image automatically uploaded to your Dropbox
+6. Check out the image in your Dropbox's "Apps/debjan's app" folder
 
 Source Code
 -----------
