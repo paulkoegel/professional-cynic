@@ -14,4 +14,13 @@ name appear in the top right corner
 Source Code
 -----------
 Right here in [this repository](https://github.com/paulwittmann/professional-cynic).
-The Dropbox integration code resides in (/app/assets/javascripts/init_dropbox.js.coffee)[https://github.com/paulwittmann/professional-cynic/blob/master/app/assets/javascripts/init_dropbox.js.coffee].
+The Dropbox integration code resides in [/app/assets/javascripts/init_dropbox.js.coffee](https://github.com/paulwittmann/professional-cynic/blob/master/app/assets/javascripts/init_dropbox.js.coffee).
+
+State of Development
+--------------------
++ Connect to your Dropbox via Dropbox.js and OAuth
++ Proof of concept to upload images to your Dropbox
++ Selecting an image via the file dialog will
+  - read its EXIF data
+  - calculate its SHA256 checksum
+  - render a preview to the DOM
