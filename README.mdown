@@ -14,4 +14,4 @@ name appear in the top right corner
 Source Code
 -----------
 Right here in [this repository](https://github.com/paulwittmann/professional-cynic).
-The Dropbox integration code resides in (/app/assets/javascripts/init_dropbox.js.coffee)[https://github.com/paulwittmann/professional-cynic/blob/master/app/assets/javascripts/init_dropbox.js.coffee].
+The Dropbox integration code resides in [/app/assets/javascripts/init_dropbox.js.coffee](https://github.com/paulwittmann/professional-cynic/blob/master/app/assets/javascripts/init_dropbox.js.coffee).
