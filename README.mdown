@@ -1,0 +1,17 @@
+Professional Cynic - Photo Gallery with Dropbox.js Integration (Work in Progress)
+=================================================================================
+
+[http://profcyn-staging.herokuapp.com](http://profcyn-staging.herokuapp.com)
+
+1. Click on the Dropbox link in navigation bar
+2. Log into your Dropbox account and authorise "debjan's app"
+3. You'll be redirected back and should see your dropbox account's
+name appear in the top right corner
+4. Select an image file (preferably with EXIF data) for the input field
+5. Image preview, SHA256 and EXIF data should be displayed
+6. Check out the image in your dropbox's "Apps/debjan's app" folder
+
+Source Code
+-----------
+Right here in [this repository](https://github.com/paulwittmann/professional-cynic).
+The Dropbox integration code resides in (/app/assets/javascripts/init_dropbox.js.coffee)[https://github.com/paulwittmann/professional-cynic/blob/master/app/assets/javascripts/init_dropbox.js.coffee].
