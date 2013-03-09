@@ -36,6 +36,7 @@ group :development do
   gem 'awesome_print'
   gem 'better_errors'
   gem 'binding_of_caller' # required for better_errors
+  # gem 'coffee-rails-source-maps'
 end
 
 group :development, :test do
