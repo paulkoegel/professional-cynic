@@ -1,7 +1,7 @@
 'use strict'
 
-PC.Image = class Image
-  constructor: (attributes = {}) ->
+class PC.Image extends Backbone.Model
+  initialize: (attributes = {}) ->
     console.log 'Hello from Image.constructor!'
     @hash            = attributes.hash || null
     @data            = attributes.data || null
@@ -54,17 +54,19 @@ PC.Image = class Image
   handleExifReaderLoaded: (event) =>
     console.log 'reader 2 loaded - EXIF coming...'
     @data = event.target.result
-
-    exif = new ExifReader()
     
     # Parse the Exif tags
-    exif.load(event.target.result)
+    exif = new ExifReader()
+    try
+      exif.load(event.target.result)
+    catch error
+      console.log 'Loading EXIF info failed with this error:', error # required in case an image has no valid EXIF data
     # Or, with jDataView you would use this:
     # exif.loadView(new jDataView(event.target.result));
+    exifObject = exif.getAllTags()
     
     # Output the tags on the page.
     $exifTable = $('#exif-tables').append('<table></table>').children('table')
-    exifObject = exif.getAllTags()
     for attribute of exifObject
       $exifTable.append('<tr><td>' + attribute + '</td><td>' + exifObject[attribute].description + '</td></tr>')
     @exifReaderDeferred.resolve()
