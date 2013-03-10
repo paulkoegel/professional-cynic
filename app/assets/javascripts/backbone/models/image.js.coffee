@@ -11,16 +11,17 @@ class PC.Image extends Backbone.Model
     galleryName: null
     dropboxURL: null
     exifObject: null
-    readerDeferred:        new $.Deferred()
-    exifReaderDeferred:    new $.Deferred()
-    dropboxUploadFinished: new $.Deferred()
-    weHaveTheURL:          new $.Deferred()
-    reader:     new FileReader
-    exifReader: new FileReader
-    cryptor: CryptoJS.algo.SHA256.create()
 
   initialize: ->
+    # can't put these under defaults as they don't seem to get generated per instance then
     @set '$img', $("<img src='' width='100'>")
+    @set 'readerDeferred',        new $.Deferred()
+    @set 'exifReaderDeferred',    new $.Deferred()
+    @set 'dropboxUploadFinished', new $.Deferred()
+    @set 'weHaveTheURL',          new $.Deferred()
+    @set 'reader',     new FileReader
+    @set 'exifReader', new FileReader
+    @set 'cryptor',    CryptoJS.algo.SHA256.create()
 
   # create image previews, calculate SHA256, read EXIF data
   readImageInfo: ->
@@ -28,7 +29,7 @@ class PC.Image extends Backbone.Model
     $('.image-previews').append(@get('$img')) if $('.image-previews').length
     @get('reader').onload = @handleReaderLoaded
     @get('exifReader').onload = @handleExifReaderLoaded
-    $.when(@readerDeferred).then =>
+    $.when(@get 'readerDeferred').then =>
       console.log 'readerDeferred has been resolved'
       @get('exifReader').readAsArrayBuffer(@get 'inputFileObject')
 
@@ -65,7 +66,7 @@ class PC.Image extends Backbone.Model
     "#{@get('hash')}"
 
   partialHash: ->
-    "#{@hashString()}".substr(0, 5)
+    @hashString().substr(0, 5)
 
   cleanEXIFDate: ->
     return null unless @get('exifObject')?
@@ -79,6 +80,7 @@ class PC.Image extends Backbone.Model
       if /^data:/.test(@get('reader').result)
         console.log 'handleReaderLoaded: read as data-URL'
         @get('$img').attr('src', event.target.result)
+        console.log @get('$img')
         @set 'width', @get('$img')[0].naturalWidth # neeed to call naturalWidth on the DOM, not the jQuery object - [0] gets the DOM object
         @set 'height', @get('$img')[0].naturalHeight
         console.log 'width x height: ', @get('width'), @get('height')
@@ -94,7 +96,7 @@ class PC.Image extends Backbone.Model
   handleExifReaderLoaded: (event) =>
     console.log 'reader 2 loaded - EXIF coming...'
     @set 'data', event.target.result
-    
+
     # Parse the Exif tags
     exif = new ExifReader()
     try
@@ -105,9 +107,9 @@ class PC.Image extends Backbone.Model
     # Or, with jDataView you would use this:
     # exif.loadView(new jDataView(event.target.result));
     @set 'exifObject', exif.getAllTags()
-    
+
     # Output the tags on the page.
-    $exifTable = $('#exif-tables').append('<table></table>').children('table')
+    $exifTable = $('#exif-tables').append('<table></table><hr class="red">').children('table')
     for attribute of @get('exifObject')
       $exifTable.append('<tr><td>' + attribute + '</td><td>' + @get('exifObject')[attribute].description + '</td></tr>')
     @get('exifReaderDeferred').resolve()
