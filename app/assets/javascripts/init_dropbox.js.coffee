@@ -9,7 +9,7 @@ showUserInfo = (client) ->
     if error?
       console.log 'getUserInfo: error'
       return
-    $('.l-header .right').text(userInfo.name)
+    $('#js-dropbox-connect').html "<a href='http://dropbox.com'><span class='icon retweet'></span>#{userInfo.name}</a>"
 
 $ ->
   PC.client = new Dropbox.Client
@@ -26,7 +26,6 @@ $ ->
     if client.isAuthenticated()
       showUserInfo(client)
     else
-      $('#js-dropbox-connect').css('border', '1px solid red')
       $('#js-dropbox-connect').click (event) ->
         event.preventDefault()
         client.authenticate (error, client) ->

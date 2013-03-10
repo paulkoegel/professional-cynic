@@ -1,20 +1,19 @@
-Irmingard::Application.routes.draw do
+ProfessionalCynic::Application.routes.draw do
 
-  root :to => 'galleries#index'
+  root to: 'galleries#index'
 
   resources :sessions
-  get 'logout' => 'sessions#destroy', :as => 'logout'
-  get 'login'  => 'sessions#new', :as => 'login'
-  resources :password_resets, :only => [:new, :create, :edit, :update]
+  get 'logout' => 'sessions#destroy', as: 'logout'
+  get 'login'  => 'sessions#new', as: 'login'
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
-  resources :galleries, :only => [:show, :index]
+  resources :galleries, only: [:show, :index]
 
   namespace :admin_controllers, as: 'admin', path: 'admin' do
-    root :to => 'galleries#index'
+    root to: 'galleries#index'
     resources :galleries
     resources :images
   end
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

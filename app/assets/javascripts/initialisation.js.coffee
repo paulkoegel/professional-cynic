@@ -31,3 +31,12 @@ class PC.AppLayout extends Backbone.Marionette.Layout
 
 PC.addInitializer (option) ->
   PC.setupApp()
+
+PC.showFlash = (type, text) ->
+  $('.m-flash-messages').addClass("is-#{type}").text(text)
+
+PC.showFlashNotice = (text) ->
+  PC.showFlash 'notice', text
+
+PC.showFlashError = (text) ->
+  PC.showFlash 'error', text

@@ -8,10 +8,6 @@
       %li= link_to 'Blog', '#'
       %li= link_to 'About', '#'
       %li= link_to 'Contact', '#'
-      %li#js-dropbox-connect
-        = link_to '#' do
-          .icon.retweet
-          Dropbox
   .right
     - if current_user
       = link_to current_user.email, logout_path

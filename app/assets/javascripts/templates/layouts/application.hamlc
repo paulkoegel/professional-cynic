@@ -1,7 +1,7 @@
 #l-header-container
   #l-header-wrapper
     %h1#title
-      Irmingard
+      ProfessionalCynic
     #l-header-container--navigation-wrapper
 #l-page-container
   #l-gradient-layer

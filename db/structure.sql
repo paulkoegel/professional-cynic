@@ -163,7 +163,8 @@ CREATE TABLE users (
     reset_password_email_sent_at timestamp without time zone,
     last_login_at timestamp without time zone,
     last_logout_at timestamp without time zone,
-    last_activity_at timestamp without time zone
+    last_activity_at timestamp without time zone,
+    is_admin boolean DEFAULT false
 );
 
 
@@ -303,3 +304,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130309151116');
 INSERT INTO schema_migrations (version) VALUES ('20130309155624');
 
 INSERT INTO schema_migrations (version) VALUES ('20130309160706');
+
+INSERT INTO schema_migrations (version) VALUES ('20130310142759');

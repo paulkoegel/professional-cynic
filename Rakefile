@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Irmingard::Application.load_tasks
+ProfessionalCynic::Application.load_tasks

@@ -1,21 +1,5 @@
--# %h1 Galleries
--#
--# - @galleries.each do |gallery|
--#   = link_to gallery.title, gallery_path(gallery)
--#   %br
--#
--# %br
--# %br
+%h1 Galleries
 
-%h2 Upload new Images
-%input#js-image-uploader{name: 'file', type: 'file', multiple: 'multiple'}
-(Use <i>Shift</i> or <i>Control</i> to select mutiple files)
-
-%h3 SHA-256 Checksums
-.sha256-results
-
-
-%h3 Image Previews
-.image-previews
-
-#exif-tables
+- @galleries.each do |gallery|
+  = link_to gallery.title, gallery_path(gallery)
+  %br

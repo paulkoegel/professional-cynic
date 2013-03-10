@@ -23,6 +23,10 @@
             = link_to 'Admin Area', admin_root_path, :class => 'brand'
             %ul.nav
               %li= link_to 'Galleries', ''
+              %li#js-dropbox-connect
+                = link_to '#' do
+                  %span.icon.retweet
+                  Dropbox
             %ul.nav.pull-right
               %li= link_to 'Logout', logout_path, class: 'login-logout'
               %li{:class => I18n.locale == :de ? 'active' : nil}
