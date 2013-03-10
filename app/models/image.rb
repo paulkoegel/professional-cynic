@@ -1,15 +1,13 @@
 class Image < ActiveRecord::Base
-  attr_accessible :caption, :width, :height, :url, :taken_at, :title, :file_name, :local_path
+  attr_accessible :caption, :width, :height, :url, :taken_at, :title, :file_name, :local_path, :dropbox_url, :hash_checksum
 
   has_many :galleryships
   has_many :galleries, through: :galleryships
 
-  before_validation :set_shot_at
-  before_validation :set_slug
+  # before_validation :set_shot_at
+  # before_validation :set_slug
 
-  validates :uuid, presence: true, uniqueness: true
-  validates :slug, presence: true, uniqueness: true
-  validates :file_name, presence: true
+  validates :hash_checksum, presence: true, uniqueness: true
 
   SCALE = 1.61803399 # golden ratio
   # D200 dimensions
@@ -25,7 +23,8 @@ class Image < ActiveRecord::Base
   end
 
   def url
-    Rails.env.production? ? self.remote_url : self.local_url
+    self.dropbox_url
+    # Rails.env.production? ? self.remote_url : self.local_url
   end
     
   def local_url

@@ -111,7 +111,9 @@ CREATE TABLE images (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     file_name character varying(255),
-    local_path character varying(255)
+    local_path character varying(255),
+    dropbox_url text,
+    hash_checksum text
 );
 
 
@@ -295,3 +297,9 @@ INSERT INTO schema_migrations (version) VALUES ('20121103001608');
 INSERT INTO schema_migrations (version) VALUES ('20121103175810');
 
 INSERT INTO schema_migrations (version) VALUES ('20130223144346');
+
+INSERT INTO schema_migrations (version) VALUES ('20130309151116');
+
+INSERT INTO schema_migrations (version) VALUES ('20130309155624');
+
+INSERT INTO schema_migrations (version) VALUES ('20130309160706');

@@ -9,7 +9,7 @@ Irmingard::Application.routes.draw do
 
   resources :galleries, :only => [:show, :index]
 
-  namespace :admin_controllers do
+  namespace :admin_controllers, as: 'admin', path: 'admin' do
     root :to => 'galleries#index'
     resources :galleries
     resources :images

@@ -13,9 +13,12 @@ $ ->
     $('.image-previews, .sha256-results').html('') # clear previously rendered previews and SHA2s
     target = event.originalEvent.srcElement or event.originalEvent.target # IE needs srcElement
 
+    PC.images = []
     _(target.files).each (file, index) ->
-      new PC.Image
+      image = new PC.Image
         inputFileObject: file
+      PC.images.push image
+      image.process()
       # # do creates an IIFE, which we need here to force block scope
       # # without it, index would be equal to target.files.length every time the .onloadend callback is triggered
       # # and we'd just keep overwriting the last <img> tag's src attribute

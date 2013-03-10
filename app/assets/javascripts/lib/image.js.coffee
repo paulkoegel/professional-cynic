@@ -1,36 +1,61 @@
 'use strict'
 
 class PC.Image extends Backbone.Model
+  urlRoot: '/admin/images'
+
   initialize: (attributes = {}) ->
     console.log 'Hello from Image.constructor!'
     @hash            = attributes.hash || null
     @data            = attributes.data || null
     @fileType        = attributes.fileType || 'jpg'
     @inputFileObject = attributes.inputFileObject || {}
+    @dropboxURL      = null
+    console.log 'inputFileObject', @inputFileObject
+
+  # trigger creation of image preview, SHA256 calculation, reading of EXIF data, as well as upload
+  # TODO: decouple all of these steps...
+  process: ->
     @$img = $("<img src='' width='100'>")
     $('.image-previews').append(@$img) if $('.image-previews').length
-    @readerDeferred     = new $.Deferred()
-    @exifReaderDeferred = new $.Deferred()
+    @readerDeferred        = new $.Deferred()
+    @exifReaderDeferred    = new $.Deferred()
+    @dropboxUploadFinished = new $.Deferred()
+    @weHaveTheURL          = new $.Deferred()
 
     @reader = new FileReader
     @reader.onload = @handleReaderLoaded
     @exifReader = new FileReader
     @exifReader.onload = @handleExifReaderLoaded
     @cryptor = CryptoJS.algo.SHA256.create()
-
     $.when(@readerDeferred).then =>
       console.log 'readerDeferred has been resolved'
       @exifReader.readAsArrayBuffer(@inputFileObject)
-    $.when(@readerDeferred, @exifReaderDeferred).then @upload
+    $.when(@readerDeferred, @exifReaderDeferred).then @uploadToDropbox
+    $.when(@dropboxUploadFinished).then =>
+      @getURL()
+    $.when(@weHaveTheURL).then =>
+      console.log 'we have the URL! Saving...', @mappedAttributesForAPI()
+      @save @mappedAttributesForAPI(), patch: true # only Rails 4 will be able to handle a PATCH request
 
-    console.log 'inputFileObject', @inputFileObject
     @reader.readAsDataURL(@inputFileObject)
 
-  upload: =>
-    PC.client.writeFile "#{@hash}.#{@fileType}", @data, (error, stat) ->
+  uploadToDropbox: =>
+    console.log 'uploading to dropbox', @fileName()
+    PC.client.writeFile @fileName(), @data, (error, stat) =>
       if error?
         console.log "An error occurred during Image.upload's .writeFile to Dropbox: ", error
       console.log 'File saved as revision: ', stat.revisionTag
+      @dropboxUploadFinished.resolve()
+
+  getURL: =>
+    console.log 'getting sharable URL'
+    PC.client.makeUrl @fileName(), (error, response) =>
+      @dropboxURL = response.url
+      console.log 'Image URL:', @dropboxURL
+      @weHaveTheURL.resolve()
+
+  fileName: ->
+    "#{@hash}.#{@fileType}"
 
   handleReaderLoaded: (event) =>
     console.log 'handleReaderLoaded'
@@ -40,8 +65,9 @@ class PC.Image extends Backbone.Model
       if /^data:/.test(@reader.result)
         console.log 'handleReaderLoaded: read as data-URL'
         @$img.attr('src', event.target.result)
-        @$img.data 'width',  @$img[0].naturalWidth # neeed to call naturalWidth on the DOM, not the jQuery object
-        @$img.data 'height', @$img[0].naturalHeight
+        @width  = @$img[0].naturalWidth # neeed to call naturalWidth on the DOM, not the jQuery object
+        @height = @$img[0].naturalHeight
+        console.log 'X|Y: ', @width, @height
         @reader.readAsBinaryString @inputFileObject # for some reason we need to call this within the .readAsDataURLs' callback - the `onload` callback doesn't fire twice when calling .readAsBinaryString right after .readAsDataURL
       else if @reader.result isnt null # callback's been called by .readAsDataURL
         console.log 'handleReaderLoaded: read as BinaryString'
@@ -59,6 +85,7 @@ class PC.Image extends Backbone.Model
     exif = new ExifReader()
     try
       exif.load(event.target.result)
+      console.log 'loading exif success'
     catch error
       console.log 'Loading EXIF info failed with this error:', error # required in case an image has no valid EXIF data
     # Or, with jDataView you would use this:
@@ -70,3 +97,9 @@ class PC.Image extends Backbone.Model
     for attribute of exifObject
       $exifTable.append('<tr><td>' + attribute + '</td><td>' + exifObject[attribute].description + '</td></tr>')
     @exifReaderDeferred.resolve()
+
+  mappedAttributesForAPI: ->
+    hash_checksum: "#{@hash}" # has is reserved by ActiveRecord
+    width: @width
+    height: @height
+    dropbox_url: @dropboxURL
