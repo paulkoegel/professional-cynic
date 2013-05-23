@@ -13,7 +13,6 @@ gem 'oj' # required for RABL
 gem 'gon'
 gem 'dropbox-api'#, :git => 'git@github.com:paulwittmann/dropbox-api.git'
 gem 'haml-rails'
-gem 'jquery-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,7 +20,6 @@ group :assets do
   gem 'coffee-rails', '~> 3.2'
   gem 'sass-rails', '~> 3.2'
   gem 'compass-rails'
-  gem 'animation' # CSS3 animations plugin for compass
   gem 'compass_twitter_bootstrap' # required for admin panel
   gem 'execjs'
   gem 'haml_coffee_assets'
