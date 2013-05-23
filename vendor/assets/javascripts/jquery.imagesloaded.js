@@ -1,5 +1,5 @@
 /*!
- * jQuery imagesLoaded plugin v2.1.0
+ * jQuery imagesLoaded plugin v2.1.2
  * http://github.com/desandro/imagesloaded
  *
  * MIT License. by Paul Irish et al.
@@ -51,6 +51,10 @@ $.fn.imagesLoaded = function( callback ) {
 		}
 	}
 
+	function imgLoadedHandler( event ) {
+		imgLoaded( event.target, event.type === 'error' );
+	}
+
 	function imgLoaded( img, isBroken ) {
 		// don't proceed if BLANK image, or image is already loaded
 		if ( img.src === BLANK || $.inArray( img, loaded ) !== -1 ) {
@@ -76,9 +80,9 @@ $.fn.imagesLoaded = function( callback ) {
 		}
 
 		// call doneLoading and clean listeners if all images are loaded
-		if ( $images.length === loaded.length ){
+		if ( $images.length === loaded.length ) {
 			setTimeout( doneLoading );
-			$images.unbind( '.imagesLoaded' );
+			$images.unbind( '.imagesLoaded', imgLoadedHandler );
 		}
 	}
 
@@ -86,10 +90,8 @@ $.fn.imagesLoaded = function( callback ) {
 	if ( !$images.length ) {
 		doneLoading();
 	} else {
-		$images.bind( 'load.imagesLoaded error.imagesLoaded', function( event ){
-			// trigger imgLoaded
-			imgLoaded( event.target, event.type === 'error' );
-		}).each( function( i, el ) {
+		$images.bind( 'load.imagesLoaded error.imagesLoaded', imgLoadedHandler )
+		.each( function( i, el ) {
 			var src = el.src;
 
 			// find out if this image has been already checked for status

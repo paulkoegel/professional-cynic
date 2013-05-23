@@ -1,8 +1,9 @@
 #= require jquery
-#= require jquery_ujs
+# require jquery_ujs
 #= require cryptojs.sha256
 #= require jquery.imagesloaded
-#= require underscore
+# require underscore
+#= require lodash
 #= require hamlcoffee
 #= require backbone
 #= require backbone.marionette
