@@ -29,6 +29,38 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: dropbox_accounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE dropbox_accounts (
+    id integer NOT NULL,
+    request_secret character varying(255),
+    request_token character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: dropbox_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE dropbox_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: dropbox_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE dropbox_accounts_id_seq OWNED BY dropbox_accounts.id;
+
+
+--
 -- Name: galleries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -191,6 +223,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY dropbox_accounts ALTER COLUMN id SET DEFAULT nextval('dropbox_accounts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY galleries ALTER COLUMN id SET DEFAULT nextval('galleries_id_seq'::regclass);
 
 
@@ -213,6 +252,14 @@ ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::reg
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: dropbox_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY dropbox_accounts
+    ADD CONSTRAINT dropbox_accounts_pkey PRIMARY KEY (id);
 
 
 --
@@ -306,3 +353,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130309155624');
 INSERT INTO schema_migrations (version) VALUES ('20130309160706');
 
 INSERT INTO schema_migrations (version) VALUES ('20130310142759');
+
+INSERT INTO schema_migrations (version) VALUES ('20130523221122');
